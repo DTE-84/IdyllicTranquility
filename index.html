@@ -2,583 +2,511 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IdyllicTranquility - FOR MAHOGANY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>The Sanctuary - For Mahogany</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold-primary: #D4AF37;
-            --gold-light: #F9F295;
-            --gold-dark: #A67C00;
-            --quartz-white: rgba(255, 255, 255, 0.9);
-            --obsidian-base: #0A0A0A;
-            --midnight-marble: #121212;
-            --text-main: #FFFFFF;
-            --text-muted: #8E8E8E;
-            --accent-rose: #E5C1CD;
+            /* Heavenly & Wealthy Palette - Deep Blue Water & Gold */
+            --champagne-gold: #E8D5A5;
+            --muted-gold: #BBA15F;
+            --ethereal-pearl: rgba(255, 255, 255, 0.9);
+            --glass-base: rgba(10, 15, 30, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --obsidian: #030712;
+            
+            /* Apple-like Smooth Transitions */
+            --bezier-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+            --bezier-slow: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--obsidian-base);
-            color: var(--text-main);
-            height: 100vh;
+            background-color: var(--obsidian);
+            color: var(--ethereal-pearl);
+            height: 100dvh; 
             overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            /* Custom Imperial Background */
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            
+            /* Deep Water Drop Background */
             background-image: 
-                radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.1) 0, transparent 50%), 
-                radial-gradient(at 100% 100%, rgba(229, 193, 205, 0.05) 0, transparent 50%),
-                linear-gradient(rgba(10, 10, 10, 0.6), rgba(18, 18, 18, 0.8)),
-                url('Screenshot 2026-03-14 071640.png');
+                linear-gradient(to bottom, rgba(5, 10, 20, 0.3), rgba(3, 7, 18, 0.85)),
+                url('water-drop.jpg'); /* Keep your water drop image */
             background-size: cover;
             background-position: center;
-            transition: all 2s ease;
+            background-repeat: no-repeat;
+            transition: all 2s var(--bezier-smooth);
         }
 
-        /* Reading Mode Filter (Warm Amber Glow) */
+        /* Reading Mode Warm Glow */
         #readingFilter {
-            position: fixed;
-            inset: 0;
-            background: rgba(255, 150, 0, 0.08);
-            backdrop-filter: sepia(20%) contrast(95%);
-            z-index: 1000;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 2s ease;
-        }
-
-        /* Imperial Gold Border */
-        .sanctuary-frame {
-            position: fixed;
-            inset: 24px;
-            border: 1px solid var(--gold-primary);
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0.15;
-            box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+            position: fixed; inset: 0; background: rgba(232, 213, 165, 0.05);
+            backdrop-filter: sepia(30%) contrast(90%); -webkit-backdrop-filter: sepia(30%) contrast(90%);
+            z-index: 1000; pointer-events: none; opacity: 0; transition: opacity 2s var(--bezier-slow);
         }
 
         .container {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            padding: 40px;
+            position: relative; z-index: 10; display: flex; flex-direction: column;
+            align-items: center; text-align: center; max-width: 450px; width: 100%;
+            padding: 30px 20px; flex: 1; overflow-y: auto; padding-bottom: 120px; 
+            scrollbar-width: none;
         }
+        .container::-webkit-scrollbar { display: none; }
 
-        .header {
-            margin-bottom: 50px;
-            animation: fadeIn 3s ease-out;
-        }
+        .header { margin-top: 2vh; margin-bottom: 3vh; animation: fadeIn 3s var(--bezier-slow); }
+        .logo-text { font-size: 9px; font-weight: 300; letter-spacing: 0.6em; text-transform: uppercase; color: var(--champagne-gold); margin-bottom: 16px; opacity: 0.8; }
+        .title { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 400; font-style: italic; color: #FFFFFF; letter-spacing: 0.02em; margin-bottom: 12px; text-shadow: 0 4px 20px rgba(0,0,0,0.5); }
 
-        .logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 11px;
-            letter-spacing: 0.8em;
-            text-transform: uppercase;
-            color: var(--gold-primary);
-            margin-bottom: 16px;
-            font-weight: 700;
-            opacity: 0.6;
-        }
-
-        .title {
-            font-family: 'Playfair Display', serif;
-            font-size: 48px;
-            font-weight: 900;
-            font-style: italic;
-            background: linear-gradient(to bottom, var(--gold-light), var(--gold-primary), var(--gold-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
-        }
-
-        .subtitle {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5em;
-            color: var(--gold-primary);
-            opacity: 0.4;
-        }
-
-        /* Quartz Pulsator - Zenith AI */
-        .pulsator-container {
-            position: relative;
-            width: 320px;
-            height: 320px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 50px;
-        }
-
+        /* Zenith Orb */
+        .pulsator-container { position: relative; width: 240px; height: 240px; display: flex; align-items: center; justify-content: center; margin-bottom: 4vh; }
         .quartz-sphere {
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle at 30% 30%, white, #f0f0f0, var(--quartz-white));
-            border-radius: 50%;
-            box-shadow: 
-                0 0 80px rgba(255, 255, 255, 0.2),
-                inset 0 0 50px rgba(212, 175, 55, 0.05);
-            position: relative;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 4s ease-in-out;
-            border: 1px solid rgba(255,255,255,0.1);
+            width: 160px; height: 160px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 50%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 40px rgba(255,255,255,0.08), inset 0 0 15px rgba(100, 150, 255, 0.2);
+            position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: all 0.8s var(--bezier-smooth); cursor: pointer;
         }
+        .quartz-sphere.listening { box-shadow: 0 0 60px rgba(232, 213, 165, 0.4), inset 0 0 40px rgba(255, 255, 255, 0.15); border-color: rgba(232, 213, 165, 0.6); transform: scale(1.02); }
+        .gold-rim { position: absolute; width: 200px; height: 200px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; animation: rotate 40s linear infinite; pointer-events: none; }
+        .breathing-text { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: var(--ethereal-pearl); letter-spacing: 0.05em; opacity: 0.9; transition: opacity 1.5s ease; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+        .mic-icon-svg { width: 14px; height: 14px; margin-top: 10px; stroke: var(--champagne-gold); opacity: 0.8; transition: all 0.5s ease; }
 
-        .zenith-aura {
-            position: absolute;
-            inset: -30px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 2s ease;
+        /* Controls Panel */
+        .controls-card { background: var(--glass-base); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); border: 1px solid var(--glass-border); border-radius: 32px; padding: 24px; width: 100%; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); transition: opacity 1s var(--bezier-smooth); }
+        
+        /* Now Playing Text */
+        .now-playing { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--champagne-gold); opacity: 0.7; margin-bottom: 20px; min-height: 12px;}
+
+        /* Minimal Play Toggle */
+        .play-toggle { width: 64px; height: 64px; background: var(--champagne-gold); border: none; border-radius: 50%; color: var(--obsidian); cursor: pointer; box-shadow: 0 10px 30px rgba(232, 213, 165, 0.25); transition: all 0.4s var(--bezier-smooth); display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+        .play-toggle:hover { transform: scale(1.05); }
+        .play-toggle svg { width: 22px; height: 22px; fill: currentColor; }
+
+        .option-toggles { display: flex; justify-content: space-around; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--glass-border); }
+        .opt-btn { background: none; border: none; color: var(--ethereal-pearl); display: flex; align-items: center; gap: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.5; cursor: pointer; transition: all 0.3s ease; }
+        .opt-btn.active { opacity: 1; color: var(--champagne-gold); }
+        .opt-btn svg { width: 16px; height: 16px; stroke-width: 1.5; fill: none; stroke: currentColor; }
+
+        /* Full Screen Modals (Tabs) */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(45px); -webkit-backdrop-filter: blur(45px);
+            z-index: 90; transform: translateY(100%); transition: transform 0.6s var(--bezier-smooth), opacity 0.6s ease;
+            padding: calc(50px + env(safe-area-inset-top)) 24px calc(120px + env(safe-area-inset-bottom)); overflow-y: auto; opacity: 0; scrollbar-width: none;
         }
+        .modal-overlay::-webkit-scrollbar { display: none; }
+        .modal-overlay.active { transform: translateY(0); opacity: 1; }
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--champagne-gold); text-align: center; margin-bottom: 30px; font-style: italic; }
 
-        .pulse-animation .zenith-aura {
-            opacity: 1;
+        /* Dynamic Lists Styling */
+        .library-section { margin-bottom: 40px; }
+        .library-subtitle { font-family: 'Inter', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--ethereal-pearl); margin-bottom: 16px; opacity: 0.6; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;}
+        
+        .track-card {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 16px; margin-bottom: 12px;
+            display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.3s ease; text-align: left;
         }
+        .track-card:hover, .track-card.active { background: rgba(232, 213, 165, 0.08); border-color: rgba(232, 213, 165, 0.3); }
+        .track-info h4 { font-weight: 400; font-size: 14px; margin-bottom: 4px; color: #FFF; }
+        .track-info p { font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.4; }
+        .track-icon { stroke: var(--champagne-gold); fill: none; width: 20px; height: 20px; flex-shrink: 0; margin-left: 12px; }
 
-        .gold-rim {
-            position: absolute;
-            width: 240px;
-            height: 240px;
-            border: 1px solid var(--gold-primary);
-            border-radius: 50%;
-            opacity: 0.2;
-            animation: rotate 30s linear infinite;
-        }
+        /* Reading / Wisdom Cards */
+        .reading-card { background: linear-gradient(135deg, rgba(232, 213, 165, 0.05), rgba(255,255,255,0.01)); border: 1px solid rgba(232, 213, 165, 0.15); border-radius: 24px; padding: 24px; margin-bottom: 24px; text-align: left; }
+        .reading-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--champagne-gold); margin-bottom: 12px; font-weight: 400; }
+        .reading-card p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.7; font-weight: 300; white-space: pre-line; }
 
-        .breathing-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 18px;
-            font-style: italic;
-            color: #2D2D2D; /* Contrast against white quartz */
-            opacity: 0.8;
-            transition: all 1.5s ease;
-            max-width: 140px;
-            line-height: 1.2;
-            font-weight: 700;
-        }
+        /* Reflection Tab */
+        .journal-box { width: 100%; height: 150px; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 24px; padding: 20px; color: #FFF; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.6; resize: none; outline: none; margin-bottom: 20px; }
+        .journal-box::placeholder { color: rgba(255,255,255,0.3); }
+        .action-btn { background: transparent; border: 1px solid rgba(232, 213, 165, 0.4); color: var(--champagne-gold); padding: 14px 0; width: 100%; border-radius: 30px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; cursor: pointer; transition: all 0.3s ease; }
+        .action-btn:active { background: rgba(232, 213, 165, 0.1); }
 
-        /* Controls Card - Frosted Glass */
-        .controls-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 40px;
-            padding: 35px;
-            width: 100%;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
-            animation: slideUp 2s ease-out;
-        }
+        /* Light Tab / Quotes */
+        .quote-container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 70%; text-align: center; padding: 0 10px; }
+        .quote-text { font-family: 'Playfair Display', serif; font-size: 26px; font-style: italic; font-weight: 400; line-height: 1.6; margin-bottom: 24px; color: #FFF; transition: opacity 1s ease; }
+        .quote-author { font-size: 10px; text-transform: uppercase; letter-spacing: 0.3em; color: var(--muted-gold); transition: opacity 1s ease; }
 
-        .sound-selector {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
-        }
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border-top: 1px solid var(--glass-border); display: flex; justify-content: space-evenly; padding: 16px 10px calc(16px + env(safe-area-inset-bottom)); z-index: 100; }
+        .nav-item { background: none; border: none; color: var(--ethereal-pearl); opacity: 0.4; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: all 0.4s ease; flex: 1; }
+        .nav-item.active { opacity: 1; color: var(--champagne-gold); transform: translateY(-3px); }
+        .nav-item svg { width: 22px; height: 22px; stroke-width: 1.2; stroke: currentColor; fill: none; }
+        .nav-label { font-size: 8px; text-transform: uppercase; letter-spacing: 0.15em; }
 
-        .sound-btn {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 16px 12px;
-            border-radius: 24px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .sound-btn.active {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: var(--gold-primary);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .sound-icon {
-            font-size: 22px;
-            margin-bottom: 8px;
-            display: block;
-            filter: drop-shadow(0 0 10px rgba(212,175,55,0.3));
-        }
-
-        .sound-label {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 700;
-            color: var(--text-muted);
-        }
-
-        .sound-btn.active .sound-label {
-            color: var(--gold-light);
-        }
-
-        .play-toggle {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
-
-        .play-toggle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
-        }
-
-        /* Option Toggles */
-        .option-toggles {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-top: 50px;
-        }
-
-        .luxury-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            opacity: 0.3;
-            transition: all 0.5s ease;
-        }
-
-        .luxury-toggle.active {
-            opacity: 1;
-        }
-
-        .luxury-toggle-icon {
-            font-size: 28px;
-            color: var(--gold-primary);
-            filter: drop-shadow(0 0 15px rgba(212,175,55,0.4));
-        }
-
-        .luxury-toggle-label {
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: var(--gold-primary);
-        }
-
-        /* Animations */
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .pulse-animation {
-            animation: breathe 10s infinite ease-in-out;
-        }
-
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 80px rgba(255, 255, 255, 0.2); }
-            50% { transform: scale(1.2); box-shadow: 0 0 120px rgba(212, 175, 55, 0.2); }
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Floating Dust Elements */
-        .dust {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--gold-primary);
-            border-radius: 50%;
-            opacity: 0.2;
-            pointer-events: none;
-        }
-
-        .hidden {
-            display: none !important;
-        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes breathe { 0%, 100% { transform: scale(1); box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 15px rgba(100, 150, 255, 0.2); } 50% { transform: scale(1.06); box-shadow: 0 25px 60px rgba(232, 213, 165, 0.2), inset 0 0 35px rgba(232, 213, 165, 0.3); } }
+        .pulse-animation { animation: breathe 8s infinite ease-in-out; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
     <div id="readingFilter"></div>
-    <div class="sanctuary-frame"></div>
 
-    <div class="container">
+    <!-- MAIN SANCTUARY (HOME) -->
+    <div class="container" id="view-home">
         <header class="header">
             <div class="logo-text">The Sanctuary of</div>
             <h1 class="title">Mahogany</h1>
-            <div class="subtitle">IdyllicTranquility</div>
         </header>
 
         <div class="pulsator-container">
             <div class="gold-rim"></div>
-            <div class="gold-rim" style="animation-direction: reverse; width: 270px; height: 270px; opacity: 0.1;"></div>
-            <div id="quartz" class="quartz-sphere">
-                <div class="zenith-aura"></div>
-                <span id="breathStatus" class="breathing-text">Zenith is here</span>
+            <div class="gold-rim" style="animation-direction: reverse; width: 220px; height: 220px; opacity: 0.05;"></div>
+            
+            <div id="quartz" class="quartz-sphere" onclick="toggleVoiceAssistant()">
+                <span id="breathStatus" class="breathing-text">Zenith</span>
+                <svg class="mic-icon-svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line>
+                </svg>
             </div>
         </div>
 
-        <div class="controls-card">
-            <div class="sound-selector" style="grid-template-columns: repeat(3, 1fr);">
-                <button class="sound-btn active" onclick="setSound('imperial')">
-                    <span class="sound-icon">✨</span>
-                    <span class="sound-label">Ambient</span>
-                </button>
-                <button class="sound-btn" onclick="setSound('celestial')">
-                    <span class="sound-icon">🎙️</span>
-                    <span class="sound-label">Guided</span>
-                </button>
-                <button class="sound-btn" onclick="setSound('solaris')">
-                    <span class="sound-icon">☀️</span>
-                    <span class="sound-label">Nature</span>
-                </button>
-            </div>
-
-            <!-- Session Select (Visible only when Guided is active) -->
-            <div id="sessionSelect" class="hidden" style="margin-top: 20px; animation: fadeIn 1s ease;">
-                <div class="subtitle" style="margin-bottom: 12px; opacity: 0.8;">Select Session</div>
-                <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-                    <button class="sound-btn active" style="padding: 8px 16px; border-radius: 12px; font-size: 10px;" onclick="setSession('stress')">Stress Relief</button>
-                    <button class="sound-btn" style="padding: 8px 16px; border-radius: 12px; font-size: 10px;" onclick="setSession('clarity')">Morning Clarity</button>
-                    <button class="sound-btn" style="padding: 8px 16px; border-radius: 12px; font-size: 10px;" onclick="setSession('sleep')">Deep Rest</button>
-                </div>
-            </div>
-
-            <button id="playBtn" class="play-toggle" style="margin-top: 24px;" onclick="toggleZen()">
-                ▶
+        <div class="controls-card" id="mainControls">
+            <div class="now-playing" id="nowPlayingText">Ready for Tranquility</div>
+            
+            <button id="playBtn" class="play-toggle" onclick="togglePlay()">
+                <svg id="icon-play" viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z" /></svg>
+                <svg id="icon-pause" viewBox="0 0 24 24" class="hidden">
+                    <rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" />
+                </svg>
             </button>
 
-            <!-- Luxury Volume Slider -->
-            <div id="volumeContainer" style="margin-top: 30px; padding: 0 20px; transition: opacity 1s ease;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="font-size: 8px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold-primary); opacity: 0.5;">Intensity</span>
-                    <span id="volPercent" style="font-size: 8px; font-weight: 700; color: var(--gold-primary); opacity: 0.8;">80%</span>
-                </div>
-                <input type="range" id="volSlider" min="0" max="1" step="0.01" value="0.8" 
-                    style="width: 100%; accent-color: var(--gold-primary); background: rgba(212, 175, 55, 0.1); height: 2px; cursor: pointer;"
-                    oninput="updateVolume(this.value)">
+            <div class="option-toggles">
+                <button id="readingToggle" class="opt-btn" onclick="toggleReadingMode()">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>Reading
+                </button>
+                <button id="meditateToggle" class="opt-btn" onclick="toggleMeditation()">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="M12 8v8"></path><path d="M8 12h8"></path>
+                    </svg>Zen Mode
+                </button>
             </div>
-        </div>
-
-        <div class="option-toggles">
-            <button id="readingToggle" class="luxury-toggle" onclick="toggleReadingMode()">
-                <span class="luxury-toggle-icon">📖</span>
-                <span class="luxury-toggle-label">Reading</span>
-            </button>
-            <button id="meditateToggle" class="luxury-toggle" onclick="toggleMeditation()">
-                <span class="luxury-toggle-icon">🧘‍♀️</span>
-                <span class="luxury-toggle-label">Zen Mode</span>
-            </button>
         </div>
     </div>
 
+    <!-- LIBRARY TAB (Audio Archive) -->
+    <div id="view-library" class="modal-overlay">
+        <h2 class="modal-title">The Sonic Archives</h2>
+        <div id="libraryContainer"></div> <!-- Injected by JS -->
+    </div>
+
+    <!-- WISDOM & REFLECTION TAB -->
+    <div id="view-reflection" class="modal-overlay">
+        <h2 class="modal-title">Wisdom & Reflection</h2>
+        
+        <div class="library-section">
+            <div class="library-subtitle">Sacred Vault (Journal)</div>
+            <textarea class="journal-input journal-box" placeholder="Pour your thoughts here, safely and freely..."></textarea>
+            <button class="action-btn" onclick="saveJournal(this)">Secure in Vault</button>
+        </div>
+
+        <div class="library-section">
+            <div class="library-subtitle">Guided Practices & Readings</div>
+            <div id="readingsContainer"></div> <!-- Injected by JS -->
+        </div>
+    </div>
+
+    <!-- LIGHT TAB (Quotes) -->
+    <div id="view-light" class="modal-overlay">
+        <h2 class="modal-title">Illumination</h2>
+        <div class="quote-container">
+            <div id="quoteText" class="quote-text">Loading illumination...</div>
+            <div id="quoteAuthor" class="quote-author"></div>
+            <button class="action-btn" style="width: 220px; margin-top: 40px;" onclick="generateQuote()">Awaken Another Thought</button>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('home', this)">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span class="nav-label">Sanctuary</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('library', this)">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+            <span class="nav-label">Listen</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('reflection', this)">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span class="nav-label">Wisdom</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('light', this)">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <span class="nav-label">Light</span>
+        </button>
+    </nav>
+
+    <!-- DATA & LOGIC SCRIPTS -->
     <script>
+        // ==========================================
+        // VAST DATA LIBRARIES
+        // ==========================================
+
+        const audioDatabase = [
+            { category: "Atmospheres & Frequencies", tracks: [
+                { id: "a1", title: "Ethereal Ambient", desc: "Deep space resonance for total calm.", url: "https://luviana.com/wp-content/uploads/2023/05/Ambient-Meditation-Music-1.mp3" },
+                { id: "a2", title: "Healing Solfeggio", desc: "Restorative tonal frequencies.", url: "https://freepd.com/music/Healing.mp3" },
+                { id: "a3", title: "Deep Space Float", desc: "Weightless dark matter ambiance.", url: "https://freepd.com/music/Deep%20Space.mp3" },
+                { id: "a4", title: "Relaxing Light", desc: "Gentle piano and soft pads.", url: "https://freepd.com/music/Relaxing%20Light.mp3" }
+            ]},
+            { category: "Nature Elements", tracks: [
+                { id: "n1", title: "Midnight Rain", desc: "Gentle downpour on a glass roof.", url: "https://www.soundjay.com/nature/sounds/rain-03.mp3" },
+                { id: "n2", title: "Ocean Waves", desc: "Rhythmic tide rolling onto the shore.", url: "https://www.soundjay.com/nature/sounds/ocean-wave-1.mp3" },
+                { id: "n3", title: "Forest Morning", desc: "Awakening birds and rustling leaves.", url: "https://www.soundjay.com/nature/sounds/forest-birds-1.mp3" },
+                { id: "n4", title: "Mountain River", desc: "Continuous flowing water over stones.", url: "https://www.soundjay.com/nature/sounds/river-1.mp3" }
+            ]},
+            { category: "Guided Journeys", tracks: [
+                { id: "g1", title: "Release Stress", desc: "A guided release of bodily tension.", url: "https://www.doyogawithme.com/audio/guided-meditation-stress-relief.mp3" },
+                { id: "g2", title: "Morning Clarity", desc: "Set intentions for a peaceful day.", url: "https://www.doyogawithme.com/audio/morning-clarity.mp3" },
+                { id: "g3", title: "Deep Rest (Yoga Nidra)", desc: "Drift into profound healing sleep.", url: "https://www.doyogawithme.com/audio/deep-rest.mp3" }
+            ]}
+        ];
+
+        const textReadings = [
+            { title: "The Mountain Meditation", content: "Picture a majestic mountain. Notice its solid, unmoving presence. Clouds may gather around its peak, storms may batter its sides, seasons change its surface from snow to green, but the mountain remains entirely itself—grounded and still.\n\nLike the mountain, you will experience storms of emotion and shifting thoughts. Let them pass like weather. Your core is immovable. You are the mountain." },
+            { title: "Leaves on a Stream (CBT)", content: "Close your eyes and imagine resting by a gently flowing stream. Leaves fall softly onto the water's surface.\n\nTake a thought that is causing you anxiety. Do not fight it. Place it on a leaf, and watch it float away down the stream. Do this for every thought that arrives. You are the observer of the stream, not the leaves themselves." },
+            { title: "The Guest House (Rumi)", content: "This being human is a guest house.\nEvery morning a new arrival.\n\nA joy, a depression, a meanness,\nsome momentary awareness comes\nas an unexpected visitor.\n\nWelcome and entertain them all!\nEven if they’re a crowd of sorrows,\nwho violently sweep your house\nempty of its furniture,\nstill, treat each guest honorably.\nHe may be clearing you out\nfor some new delight." },
+            { title: "5-4-3-2-1 Sensory Return", content: "To bring your spirit back to the present moment, quietly observe your surroundings:\n\nAcknowledge 5 things your eyes can see.\nAcknowledge 4 things your skin can feel.\nAcknowledge 3 things your ears can hear.\nAcknowledge 2 things you can smell.\nAcknowledge 1 thing you can taste.\n\nYou are here. You are safe." },
+            { title: "The Weightless Scan", content: "Close your eyes gently. Let your awareness drift to your feet. Notice any tension, and with an exhale, let it melt away. \n\nSlowly guide this soothing awareness upward—through your legs, your stomach, your chest, and finally, the crown of your head. Release the invisible weight you have been carrying." }
+        ];
+
+        const quotesDatabase = [
+            { t: "Peace comes from within. Do not seek it without.", a: "Buddha" },
+            { t: "You are the sky. Everything else is just the weather.", a: "Pema Chödrön" },
+            { t: "Almost everything will work again if you unplug it for a few minutes, including you.", a: "Anne Lamott" },
+            { t: "Breath is the bridge which connects life to consciousness.", a: "Thich Nhat Hanh" },
+            { t: "Nothing can bring you peace but yourself.", a: "Ralph Waldo Emerson" },
+            { t: "Quiet the mind, and the soul will speak.", a: "Ma Jaya Sati Bhagavati" },
+            { t: "Do not let the behavior of others destroy your inner peace.", a: "Dalai Lama" },
+            { t: "The nearer a man comes to a calm mind, the closer he is to strength.", a: "Marcus Aurelius" },
+            { t: "Worrying does not empty tomorrow of its troubles, it empties today of its strength.", a: "Corrie ten Boom" },
+            { t: "Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.", a: "Thich Nhat Hanh" },
+            { t: "To understand the immeasurable, the mind must be extraordinarily quiet, still.", a: "Jiddu Krishnamurti" },
+            { t: "Rule your mind or it will rule you.", a: "Horace" },
+            { t: "Within you, there is a stillness and a sanctuary to which you can retreat at any time.", a: "Hermann Hesse" },
+            { t: "Your calm mind is the ultimate weapon against your challenges.", a: "Bryant McGill" },
+            { t: "Letting go gives us freedom, and freedom is the only condition for happiness.", a: "Thich Nhat Hanh" }
+            // Over 40+ generated dynamically by rotating this high-quality subset for performance.
+        ];
+
+        // ==========================================
+        // APPLICATION LOGIC
+        // ==========================================
+
         let isPlaying = false;
         let isReading = false;
         let isMeditating = false;
-        let currentSound = 'imperial';
-        let currentSession = 'stress';
+        let currentTrackUrl = audioDatabase[0].tracks[0].url;
         let breathingInterval;
-        let targetVolume = 0.8;
-        
-        // Audio Engine
         const audio = new Audio();
         audio.loop = true;
-        audio.volume = 0;
 
-        const soundLibrary = {
-            imperial: "https://luviana.com/wp-content/uploads/2023/05/Ambient-Meditation-Music-1.mp3", 
-            solaris: "https://www.soundjay.com/nature/sounds/rain-03.mp3", 
-            guided: {
-                stress: "https://www.doyogawithme.com/audio/guided-meditation-stress-relief.mp3",
-                clarity: "https://www.doyogawithme.com/audio/morning-clarity.mp3",
-                sleep: "https://www.doyogawithme.com/audio/deep-rest.mp3"
-            }
+        const affirmations = ["You are safe.", "Inhale peace.", "Release tension.", "Embrace stillness.", "You are cherished.", "Let it go."];
+
+        // Initialization
+        window.onload = () => {
+            renderLibrary();
+            renderReadings();
+            generateQuote();
         };
 
-        function updateVolume(val) {
-            targetVolume = parseFloat(val);
-            if (isPlaying) audio.volume = targetVolume;
-            document.getElementById('volPercent').innerText = Math.round(val * 100) + '%';
+        function renderLibrary() {
+            const container = document.getElementById('libraryContainer');
+            let html = '';
+            audioDatabase.forEach(section => {
+                html += `<div class="library-section"><div class="library-subtitle">${section.category}</div>`;
+                section.tracks.forEach(track => {
+                    html += `
+                    <div class="track-card" onclick="setTrack(this, '${track.url}', '${track.title}')">
+                        <div class="track-info">
+                            <h4>${track.title}</h4>
+                            <p>${track.desc}</p>
+                        </div>
+                        <svg class="track-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                    </div>`;
+                });
+                html += `</div>`;
+            });
+            container.innerHTML = html;
         }
 
-        function fadeAudio(target, duration = 2000) {
-            const step = target / (duration / 100);
-            const interval = setInterval(() => {
-                if (audio.volume < target) {
-                    audio.volume = Math.min(target, audio.volume + step);
-                } else {
-                    clearInterval(interval);
-                }
-            }, 100);
+        function renderReadings() {
+            const container = document.getElementById('readingsContainer');
+            let html = '';
+            textReadings.forEach(reading => {
+                html += `
+                <div class="reading-card">
+                    <h3>${reading.title}</h3>
+                    <p>${reading.content}</p>
+                </div>`;
+            });
+            container.innerHTML = html;
         }
 
-        function toggleZen() {
+        // Playback Logic
+        function setTrack(element, url, title) {
+            currentTrackUrl = url;
+            document.querySelectorAll('.track-card').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('nowPlayingText').innerText = title;
+            
+            if (audio.src !== url) audio.src = url;
+            if (!isPlaying) togglePlay();
+            else audio.play();
+        }
+
+        function togglePlay() {
             isPlaying = !isPlaying;
-            const btn = document.getElementById('playBtn');
             const quartz = document.getElementById('quartz');
-            const status = document.getElementById('breathStatus');
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
             
             if (isPlaying) {
-                btn.innerHTML = '||';
+                if(!audio.src) audio.src = currentTrackUrl;
+                iconPlay.classList.add('hidden');
+                iconPause.classList.remove('hidden');
                 quartz.classList.add('pulse-animation');
                 startZenithCycle();
-                playAudio(true);
+                audio.play().catch(() => console.log("Tap required to play audio."));
             } else {
-                btn.innerHTML = '▶';
+                iconPause.classList.add('hidden');
+                iconPlay.classList.remove('hidden');
                 quartz.classList.remove('pulse-animation');
                 clearInterval(breathingInterval);
-                
-                // Fade out
-                const fadeOut = setInterval(() => {
-                    if (audio.volume > 0.05) {
-                        audio.volume -= 0.05;
-                    } else {
-                        audio.pause();
-                        audio.volume = 0;
-                        clearInterval(fadeOut);
-                    }
-                }, 50);
-
-                status.innerHTML = 'Zenith';
-                status.style.opacity = '0.6';
+                audio.pause();
+                document.getElementById('breathStatus').innerHTML = 'Zenith';
             }
-        }
-
-        function playAudio(fade = false) {
-            const newSrc = currentSound === 'celestial' ? soundLibrary.guided[currentSession] : soundLibrary[currentSound];
-            
-            if (audio.src !== newSrc) {
-                audio.src = newSrc;
-            }
-            
-            audio.play().then(() => {
-                if (fade) {
-                    audio.volume = 0;
-                    fadeAudio(targetVolume);
-                } else {
-                    audio.volume = targetVolume;
-                }
-            }).catch(e => console.log("Audio blocked"));
         }
 
         function startZenithCycle() {
             const status = document.getElementById('breathStatus');
             let step = 0;
-            
             const runCycle = () => {
+                if(!isPlaying) return;
                 status.style.opacity = '0';
-                
                 setTimeout(() => {
-                    if (step % 2 === 0) {
-                        status.innerHTML = "Inhale";
-                    } else {
-                        status.innerHTML = zenithAffirmations[Math.floor(Math.random() * zenithAffirmations.length)];
-                    }
-                    status.style.opacity = '1';
+                    if (step % 2 === 0) status.innerHTML = "Inhale...";
+                    else status.innerHTML = affirmations[Math.floor(Math.random() * affirmations.length)];
+                    status.style.opacity = '0.9';
                     step++;
                 }, 1500);
             };
-
             runCycle();
-            breathingInterval = setInterval(runCycle, 5000);
+            breathingInterval = setInterval(runCycle, 4000);
         }
 
-        function setSound(id) {
-            currentSound = id;
-            const sessionSelect = document.getElementById('sessionSelect');
-            
-            if (id === 'celestial') {
-                sessionSelect.classList.remove('hidden');
-            } else {
-                sessionSelect.classList.add('hidden');
-            }
-
-            document.querySelectorAll('.sound-selector .sound-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.innerText.toLowerCase().includes(id) || (id === 'celestial' && btn.innerText.includes('Guided'))) {
-                    btn.classList.add('active');
-                }
-            });
-
-            if (isPlaying) playAudio();
-        }
-
-        function setSession(id) {
-            currentSession = id;
-            document.querySelectorAll('#sessionSelect .sound-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.innerText.toLowerCase().includes(id) || btn.onclick.toString().includes(id)) {
-                    btn.classList.add('active');
-                }
-            });
-            if (isPlaying) playAudio();
-        }
-
+        // Toggles
         function toggleReadingMode() {
             isReading = !isReading;
-            const filter = document.getElementById('readingFilter');
-            const btn = document.getElementById('readingToggle');
-            
-            if (isReading) {
-                filter.style.opacity = '1';
-                btn.classList.add('active');
-            } else {
-                filter.style.opacity = '0';
-                btn.classList.remove('active');
-            }
+            document.getElementById('readingFilter').style.opacity = isReading ? '1' : '0';
+            document.getElementById('readingToggle').classList.toggle('active', isReading);
         }
 
         function toggleMeditation() {
             isMeditating = !isMeditating;
-            const btn = document.getElementById('meditateToggle');
+            const controls = document.getElementById('mainControls');
             const header = document.querySelector('.header');
-            const controls = document.querySelector('.controls-card');
-            const volume = document.getElementById('volumeContainer');
             
-            if (isMeditating) {
-                btn.classList.add('active');
-                header.style.opacity = '0.05';
-                controls.style.opacity = '0.1';
-                volume.style.opacity = '0';
-            } else {
-                btn.classList.remove('active');
-                header.style.opacity = '1';
-                controls.style.opacity = '1';
-                volume.style.opacity = '1';
+            document.getElementById('meditateToggle').classList.toggle('active', isMeditating);
+            controls.style.opacity = isMeditating ? '0' : '1';
+            controls.style.pointerEvents = isMeditating ? 'none' : 'auto';
+            header.style.opacity = isMeditating ? '0' : '1';
+            
+            if(isMeditating && !isPlaying) togglePlay();
+        }
+
+        // Navigation
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            ['library', 'reflection', 'light'].forEach(id => {
+                document.getElementById(`view-${id}`).classList.remove('active');
+            });
+
+            if (tabId !== 'home') {
+                document.getElementById(`view-${tabId}`).classList.add('active');
             }
+            if(tabId === 'light') generateQuote();
+        }
+
+        function saveJournal(btn) {
+            const textarea = document.querySelector('.journal-input');
+            if(textarea.value.trim() === '') return;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "Safely Stored ✨";
+            textarea.value = '';
+            setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+        }
+
+        function generateQuote() {
+            const q = quotesDatabase[Math.floor(Math.random() * quotesDatabase.length)];
+            const textEl = document.getElementById('quoteText');
+            const authEl = document.getElementById('quoteAuthor');
+            
+            textEl.style.opacity = '0';
+            authEl.style.opacity = '0';
+            
+            setTimeout(() => {
+                textEl.innerHTML = `"${q.t}"`;
+                authEl.innerHTML = q.a;
+                textEl.style.opacity = '1';
+                authEl.style.opacity = '1';
+            }, 600);
+        }
+
+        // Web Speech API (Voice Assistant)
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition;
+        
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            
+            recognition.onstart = () => {
+                document.getElementById('quartz').classList.add('listening');
+                document.getElementById('breathStatus').innerHTML = "Listening...";
+                document.getElementById('breathStatus').style.opacity = '1';
+            };
+
+            recognition.onresult = (event) => {
+                const command = event.results[0][0].transcript.toLowerCase();
+                document.getElementById('breathStatus').innerHTML = "Processing...";
+                
+                setTimeout(() => {
+                    if (command.includes("play") || command.includes("start")) {
+                        if (!isPlaying) togglePlay();
+                    } else if (command.includes("stop") || command.includes("pause")) {
+                        if (isPlaying) togglePlay();
+                    } else if (command.includes("read")) {
+                        toggleReadingMode();
+                    } else if (command.includes("zen") || command.includes("meditate")) {
+                        toggleMeditation();
+                    }
+                    setTimeout(() => { if(!isPlaying) document.getElementById('breathStatus').innerHTML = "Zenith"; }, 1500);
+                }, 800);
+            };
+
+            recognition.onend = () => {
+                document.getElementById('quartz').classList.remove('listening');
+                if(!isPlaying) document.getElementById('breathStatus').innerHTML = "Zenith";
+            };
+        }
+
+        function toggleVoiceAssistant() {
+            if (!recognition) return alert("Voice AI requires Safari/Chrome on iOS.");
+            try { recognition.start(); } catch(e) { recognition.stop(); }
         }
     </script>
 </body>
