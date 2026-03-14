@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IdyllicTranquility - FOR MAHOGANY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-light: #F9F295;
+            --gold-dark: #A67C00;
+            --quartz-white: rgba(255, 255, 255, 0.9);
+            --obsidian-base: #0A0A0A;
+            --midnight-marble: #121212;
+            --text-main: #FFFFFF;
+            --text-muted: #8E8E8E;
+            --accent-rose: #E5C1CD;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--obsidian-base);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* Custom Imperial Background */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(229, 193, 205, 0.05) 0, transparent 50%),
+                linear-gradient(rgba(10, 10, 10, 0.6), rgba(18, 18, 18, 0.8)),
+                url('Screenshot 2026-03-14 071640.png');
+            background-size: cover;
+            background-position: center;
+            transition: all 2s ease;
+        }
+
+        /* Reading Mode Filter (Warm Amber Glow) */
+        #readingFilter {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 150, 0, 0.08);
+            backdrop-filter: sepia(20%) contrast(95%);
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        /* Imperial Gold Border */
+        .sanctuary-frame {
+            position: fixed;
+            inset: 24px;
+            border: 1px solid var(--gold-primary);
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.15;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            margin-bottom: 50px;
+            animation: fadeIn 3s ease-out;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 11px;
+            letter-spacing: 0.8em;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+            margin-bottom: 16px;
+            font-weight: 700;
+            opacity: 0.6;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 900;
+            font-style: italic;
+            background: linear-gradient(to bottom, var(--gold-light), var(--gold-primary), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
+        }
+
+        .subtitle {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: var(--gold-primary);
+            opacity: 0.4;
+        }
+
+        /* Quartz Pulsator - Zenith AI */
+        .pulsator-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .quartz-sphere {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at 30% 30%, white, #f0f0f0, var(--quartz-white));
+            border-radius: 50%;
+            box-shadow: 
+                0 0 80px rgba(255, 255, 255, 0.2),
+                inset 0 0 50px rgba(212, 175, 55, 0.05);
+            position: relative;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 4s ease-in-out;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .zenith-aura {
+            position: absolute;
+            inset: -30px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .pulse-animation .zenith-aura {
+            opacity: 1;
+        }
+
+        .gold-rim {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border: 1px solid var(--gold-primary);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: rotate 30s linear infinite;
+        }
+
+        .breathing-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-style: italic;
+            color: #2D2D2D; /* Contrast against white quartz */
+            opacity: 0.8;
+            transition: all 1.5s ease;
+            max-width: 140px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        /* Controls Card - Frosted Glass */
+        .controls-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 40px;
+            padding: 35px;
+            width: 100%;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            animation: slideUp 2s ease-out;
+        }
+
+        .sound-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .sound-btn {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 16px 12px;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .sound-btn.active {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .sound-icon {
+            font-size: 22px;
+            margin-bottom: 8px;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(212,175,55,0.3));
+        }
+
+        .sound-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .sound-btn.active .sound-label {
+            color: var(--gold-light);
+        }
+
+        .play-toggle {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .play-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Option Toggles */
+        .option-toggles {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .luxury-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.3;
+            transition: all 0.5s ease;
+        }
+
+        .luxury-toggle.active {
+            opacity: 1;
+        }
+
+        .luxury-toggle-icon {
+            font-size: 28px;
+            color: var(--gold-primary);
+            filter: drop-shadow(0 0 15px rgba(212,175,55,0.4));
+        }
+
+        .luxury-toggle-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--gold-primary);
+        }
+
+        /* Animations */
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .pulse-animation {
+            animation: breathe 10s infinite ease-in-out;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 80px rgba(255, 255, 255, 0.2); }
+            50% { transform: scale(1.2); box-shadow: 0 0 120px rgba(212, 175, 55, 0.2); }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Floating Dust Elements */
+        .dust {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--gold-primary);
+            border-radius: 50%;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="readingFilter"></div>
+    <div class="sanctuary-frame"></div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo-text">The Sanctuary of</div>
+            <h1 class="title">Mahogany</h1>
+            <div class="subtitle">IdyllicTranquility</div>
+        </header>
+
+        <div class="pulsator-container">
+            <div class="gold-rim"></div>
+            <div class="gold-rim" style="animation-direction: reverse; width: 270px; height: 270px; opacity: 0.1;"></div>
+            <div id="quartz" class="quartz-sphere">
+                <div class="zenith-aura"></div>
+                <span id="breathStatus" class="breathing-text">Zenith is here</span>
+            </div>
+        </div>
+
+        <div class="controls-card">
+            <div class="sound-selector" style="grid-template-columns: repeat(3, 1fr);">
+                <button class="sound-btn active" onclick="setSound('imperial')">
+                    <span class="sound-icon">✨</span>
+                    <span class="sound-label">Ambient</span>
+                </button>
+                <button class="sound-btn" onclick="setSound('celestial')">
+                    <span class="sound-icon">🎙️</span>
+                    <span class="sound-label">Guided</span>
+                </button>
+                <button class="sound-btn" onclick="setSound('solaris')">
+                    <span class="sound-icon">☀️</span>
+                    <span class="sound-label">Nature</span>
+                </button>
+            </div>
+
+            <!-- Session Select (Visible only when Guided is active) -->
+            <div id="sessionSelect" class="hidden" style="margin-top: 20px; animation: fadeIn 1s ease;">
+                <div class="subtitle" style="margin-bottom: 12px; opacity: 0.8;">Select Session</div>
+                <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                    <button class="sound-btn active" style="padding: 8px 16px; border-radius: 12px; font-size: 10px;" onclick="setSession('stress')">Stress Relief</button>
+                    <button class="sound-btn" style="padding: 8px 16px; border-radius: 12px; font-size: 10px;" onclick="setSession('clarity')">Morning Clarity</button>
+                    <button class="sound-btn" style="padding: 8px 16px; border-radius: 12px; font-size: 10px;" onclick="setSession('sleep')">Deep Rest</button>
+                </div>
+            </div>
+
+            <button id="playBtn" class="play-toggle" style="margin-top: 24px;" onclick="toggleZen()">
+                ▶
+            </button>
+
+            <!-- Luxury Volume Slider -->
+            <div id="volumeContainer" style="margin-top: 30px; padding: 0 20px; transition: opacity 1s ease;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 8px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold-primary); opacity: 0.5;">Intensity</span>
+                    <span id="volPercent" style="font-size: 8px; font-weight: 700; color: var(--gold-primary); opacity: 0.8;">80%</span>
+                </div>
+                <input type="range" id="volSlider" min="0" max="1" step="0.01" value="0.8" 
+                    style="width: 100%; accent-color: var(--gold-primary); background: rgba(212, 175, 55, 0.1); height: 2px; cursor: pointer;"
+                    oninput="updateVolume(this.value)">
+            </div>
+        </div>
+
+        <div class="option-toggles">
+            <button id="readingToggle" class="luxury-toggle" onclick="toggleReadingMode()">
+                <span class="luxury-toggle-icon">📖</span>
+                <span class="luxury-toggle-label">Reading</span>
+            </button>
+            <button id="meditateToggle" class="luxury-toggle" onclick="toggleMeditation()">
+                <span class="luxury-toggle-icon">🧘‍♀️</span>
+                <span class="luxury-toggle-label">Zen Mode</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let isPlaying = false;
+        let isReading = false;
+        let isMeditating = false;
+        let currentSound = 'imperial';
+        let currentSession = 'stress';
+        let breathingInterval;
+        let targetVolume = 0.8;
+        
+        // Audio Engine
+        const audio = new Audio();
+        audio.loop = true;
+        audio.volume = 0;
+
+        const soundLibrary = {
+            imperial: "https://luviana.com/wp-content/uploads/2023/05/Ambient-Meditation-Music-1.mp3", 
+            solaris: "https://www.soundjay.com/nature/sounds/rain-03.mp3", 
+            guided: {
+                stress: "https://www.doyogawithme.com/audio/guided-meditation-stress-relief.mp3",
+                clarity: "https://www.doyogawithme.com/audio/morning-clarity.mp3",
+                sleep: "https://www.doyogawithme.com/audio/deep-rest.mp3"
+            }
+        };
+
+        function updateVolume(val) {
+            targetVolume = parseFloat(val);
+            if (isPlaying) audio.volume = targetVolume;
+            document.getElementById('volPercent').innerText = Math.round(val * 100) + '%';
+        }
+
+        function fadeAudio(target, duration = 2000) {
+            const step = target / (duration / 100);
+            const interval = setInterval(() => {
+                if (audio.volume < target) {
+                    audio.volume = Math.min(target, audio.volume + step);
+                } else {
+                    clearInterval(interval);
+                }
+            }, 100);
+        }
+
+        function toggleZen() {
+            isPlaying = !isPlaying;
+            const btn = document.getElementById('playBtn');
+            const quartz = document.getElementById('quartz');
+            const status = document.getElementById('breathStatus');
+            
+            if (isPlaying) {
+                btn.innerHTML = '||';
+                quartz.classList.add('pulse-animation');
+                startZenithCycle();
+                playAudio(true);
+            } else {
+                btn.innerHTML = '▶';
+                quartz.classList.remove('pulse-animation');
+                clearInterval(breathingInterval);
+                
+                // Fade out
+                const fadeOut = setInterval(() => {
+                    if (audio.volume > 0.05) {
+                        audio.volume -= 0.05;
+                    } else {
+                        audio.pause();
+                        audio.volume = 0;
+                        clearInterval(fadeOut);
+                    }
+                }, 50);
+
+                status.innerHTML = 'Zenith';
+                status.style.opacity = '0.6';
+            }
+        }
+
+        function playAudio(fade = false) {
+            const newSrc = currentSound === 'celestial' ? soundLibrary.guided[currentSession] : soundLibrary[currentSound];
+            
+            if (audio.src !== newSrc) {
+                audio.src = newSrc;
+            }
+            
+            audio.play().then(() => {
+                if (fade) {
+                    audio.volume = 0;
+                    fadeAudio(targetVolume);
+                } else {
+                    audio.volume = targetVolume;
+                }
+            }).catch(e => console.log("Audio blocked"));
+        }
+
+        function startZenithCycle() {
+            const status = document.getElementById('breathStatus');
+            let step = 0;
+            
+            const runCycle = () => {
+                status.style.opacity = '0';
+                
+                setTimeout(() => {
+                    if (step % 2 === 0) {
+                        status.innerHTML = "Inhale";
+                    } else {
+                        status.innerHTML = zenithAffirmations[Math.floor(Math.random() * zenithAffirmations.length)];
+                    }
+                    status.style.opacity = '1';
+                    step++;
+                }, 1500);
+            };
+
+            runCycle();
+            breathingInterval = setInterval(runCycle, 5000);
+        }
+
+        function setSound(id) {
+            currentSound = id;
+            const sessionSelect = document.getElementById('sessionSelect');
+            
+            if (id === 'celestial') {
+                sessionSelect.classList.remove('hidden');
+            } else {
+                sessionSelect.classList.add('hidden');
+            }
+
+            document.querySelectorAll('.sound-selector .sound-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.toLowerCase().includes(id) || (id === 'celestial' && btn.innerText.includes('Guided'))) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (isPlaying) playAudio();
+        }
+
+        function setSession(id) {
+            currentSession = id;
+            document.querySelectorAll('#sessionSelect .sound-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.toLowerCase().includes(id) || btn.onclick.toString().includes(id)) {
+                    btn.classList.add('active');
+                }
+            });
+            if (isPlaying) playAudio();
+        }
+
+        function toggleReadingMode() {
+            isReading = !isReading;
+            const filter = document.getElementById('readingFilter');
+            const btn = document.getElementById('readingToggle');
+            
+            if (isReading) {
+                filter.style.opacity = '1';
+                btn.classList.add('active');
+            } else {
+                filter.style.opacity = '0';
+                btn.classList.remove('active');
+            }
+        }
+
+        function toggleMeditation() {
+            isMeditating = !isMeditating;
+            const btn = document.getElementById('meditateToggle');
+            const header = document.querySelector('.header');
+            const controls = document.querySelector('.controls-card');
+            const volume = document.getElementById('volumeContainer');
+            
+            if (isMeditating) {
+                btn.classList.add('active');
+                header.style.opacity = '0.05';
+                controls.style.opacity = '0.1';
+                volume.style.opacity = '0';
+            } else {
+                btn.classList.remove('active');
+                header.style.opacity = '1';
+                controls.style.opacity = '1';
+                volume.style.opacity = '1';
+            }
+        }
+    </script>
+</body>
+</html>
