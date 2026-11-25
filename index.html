@@ -128,6 +128,14 @@
         .action-btn { background: transparent; border: 1px solid rgba(232, 213, 165, 0.4); color: var(--champagne-gold); padding: 14px 0; width: 100%; border-radius: 30px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; cursor: pointer; transition: all 0.3s ease; }
         .action-btn:active { background: rgba(232, 213, 165, 0.1); }
 
+        /* Saved Journal Entries */
+        .journal-entry { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 16px; margin-top: 16px; text-align: left; position: relative; }
+        .journal-entry-date { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--champagne-gold); opacity: 0.7; margin-bottom: 8px; }
+        .journal-entry-text { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; font-weight: 300; white-space: pre-line; }
+        .journal-entry-delete { position: absolute; top: 14px; right: 14px; background: none; border: none; color: rgba(255,255,255,0.3); cursor: pointer; font-size: 16px; line-height: 1; padding: 4px; transition: color 0.3s ease; }
+        .journal-entry-delete:hover { color: var(--champagne-gold); }
+        .journal-empty { font-size: 12px; color: rgba(255,255,255,0.3); font-weight: 300; text-align: center; margin-top: 16px; font-style: italic; }
+
         /* Light Tab / Quotes */
         .quote-container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 70%; text-align: center; padding: 0 10px; }
         .quote-text { font-family: 'Playfair Display', serif; font-size: 26px; font-style: italic; font-weight: 400; line-height: 1.6; margin-bottom: 24px; color: #FFF; transition: opacity 1s ease; }
@@ -209,6 +217,7 @@
             <div class="library-subtitle">Sacred Vault (Journal)</div>
             <textarea class="journal-input journal-box" placeholder="Pour your thoughts here, safely and freely..."></textarea>
             <button class="action-btn" onclick="saveJournal(this)">Secure in Vault</button>
+            <div id="journalEntries"></div>
         </div>
 
         <div class="library-section">
@@ -255,21 +264,21 @@
 
         const audioDatabase = [
             { category: "Atmospheres & Frequencies", tracks: [
-                { id: "a1", title: "Ethereal Ambient", desc: "Deep space resonance for total calm.", url: "https://luviana.com/wp-content/uploads/2023/05/Ambient-Meditation-Music-1.mp3" },
-                { id: "a2", title: "Healing Solfeggio", desc: "Restorative tonal frequencies.", url: "https://freepd.com/music/Healing.mp3" },
-                { id: "a3", title: "Deep Space Float", desc: "Weightless dark matter ambiance.", url: "https://freepd.com/music/Deep%20Space.mp3" },
-                { id: "a4", title: "Relaxing Light", desc: "Gentle piano and soft pads.", url: "https://freepd.com/music/Relaxing%20Light.mp3" }
+                { id: "a1", title: "Ethereal Ambient", desc: "Deep space resonance for total calm.", url: "audio/atmosphere-ethereal-ambient.mp3" },
+                { id: "a2", title: "Healing Tones", desc: "Restorative tonal frequencies.", url: "audio/atmosphere-healing.mp3" },
+                { id: "a3", title: "Deep Space Float", desc: "Weightless dark matter ambiance.", url: "audio/atmosphere-deep-space.mp3" },
+                { id: "a4", title: "Relaxing Light", desc: "Gentle piano and soft pads.", url: "audio/atmosphere-relaxing-light.mp3" }
             ]},
             { category: "Nature Elements", tracks: [
-                { id: "n1", title: "Midnight Rain", desc: "Gentle downpour on a glass roof.", url: "https://www.soundjay.com/nature/sounds/rain-03.mp3" },
-                { id: "n2", title: "Ocean Waves", desc: "Rhythmic tide rolling onto the shore.", url: "https://www.soundjay.com/nature/sounds/ocean-wave-1.mp3" },
-                { id: "n3", title: "Forest Morning", desc: "Awakening birds and rustling leaves.", url: "https://www.soundjay.com/nature/sounds/forest-birds-1.mp3" },
-                { id: "n4", title: "Mountain River", desc: "Continuous flowing water over stones.", url: "https://www.soundjay.com/nature/sounds/river-1.mp3" }
+                { id: "n1", title: "Midnight Rain", desc: "Gentle downpour on a glass roof.", url: "audio/nature-rain.mp3" },
+                { id: "n2", title: "Ocean Waves", desc: "Rhythmic tide rolling onto the shore.", url: "audio/nature-ocean.mp3" },
+                { id: "n3", title: "Forest Morning", desc: "Awakening birds and rustling leaves.", url: "audio/nature-forest.mp3" },
+                { id: "n4", title: "Mountain River", desc: "Continuous flowing water over stones.", url: "audio/nature-river.mp3" }
             ]},
-            { category: "Guided Journeys", tracks: [
-                { id: "g1", title: "Release Stress", desc: "A guided release of bodily tension.", url: "https://www.doyogawithme.com/audio/guided-meditation-stress-relief.mp3" },
-                { id: "g2", title: "Morning Clarity", desc: "Set intentions for a peaceful day.", url: "https://www.doyogawithme.com/audio/morning-clarity.mp3" },
-                { id: "g3", title: "Deep Rest (Yoga Nidra)", desc: "Drift into profound healing sleep.", url: "https://www.doyogawithme.com/audio/deep-rest.mp3" }
+            { category: "Quiet Practice", tracks: [
+                { id: "g1", title: "Release Stress", desc: "Slow, settling tones to ease bodily tension.", url: "audio/guided-release-stress.mp3" },
+                { id: "g2", title: "Morning Clarity", desc: "A gentle backdrop for setting a peaceful intention.", url: "audio/guided-morning-clarity.mp3" },
+                { id: "g3", title: "Deep Rest", desc: "Soft, drifting tones for restful stillness.", url: "audio/guided-deep-rest.mp3" }
             ]}
         ];
 
@@ -318,6 +327,7 @@
         window.onload = () => {
             renderLibrary();
             renderReadings();
+            renderJournalEntries();
             generateQuote();
         };
 
@@ -441,13 +451,58 @@
             if(tabId === 'light') generateQuote();
         }
 
+        const JOURNAL_KEY = 'sanctuary_journal_entries';
+
+        function getJournalEntries() {
+            try { return JSON.parse(localStorage.getItem(JOURNAL_KEY)) || []; }
+            catch(e) { return []; }
+        }
+
+        function setJournalEntries(entries) {
+            localStorage.setItem(JOURNAL_KEY, JSON.stringify(entries));
+        }
+
         function saveJournal(btn) {
             const textarea = document.querySelector('.journal-input');
             if(textarea.value.trim() === '') return;
+
+            const entries = getJournalEntries();
+            entries.unshift({ text: textarea.value.trim(), date: new Date().toISOString() });
+            setJournalEntries(entries);
+
             const originalText = btn.innerHTML;
             btn.innerHTML = "Safely Stored ✨";
             textarea.value = '';
+            renderJournalEntries();
             setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+        }
+
+        function deleteJournalEntry(index) {
+            const entries = getJournalEntries();
+            entries.splice(index, 1);
+            setJournalEntries(entries);
+            renderJournalEntries();
+        }
+
+        function renderJournalEntries() {
+            const container = document.getElementById('journalEntries');
+            const entries = getJournalEntries();
+
+            if (entries.length === 0) {
+                container.innerHTML = '<div class="journal-empty">Your past reflections will rest here.</div>';
+                return;
+            }
+
+            container.innerHTML = entries.map((entry, i) => {
+                const d = new Date(entry.date);
+                const dateStr = d.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+                return `
+                <div class="journal-entry">
+                    <button class="journal-entry-delete" onclick="deleteJournalEntry(${i})" aria-label="Delete entry">&times;</button>
+                    <div class="journal-entry-date">${dateStr}</div>
+                    <div class="journal-entry-text">${entry.text.replace(/</g, '&lt;')}</div>
+                </div>`;
+            }).join('');
         }
 
         function generateQuote() {
